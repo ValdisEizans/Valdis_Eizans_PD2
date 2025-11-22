@@ -13,7 +13,7 @@
 	 >
 </head>
 <body>
-	<nav class="navbar navbar-expand-md bg-primary mb-3" data-bs-theme="dark">
+	<nav class="navbar navbar-expand-md bg-success mb-3" data-bs-theme="dark">
 		<div class="container">
 			<span class="navbar-brand mb-0 h1">Project 2</span>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -26,7 +26,7 @@
 				<a class="nav-link" href="/">Home</a>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link" href="/author">Artists</a>
+				<a class="nav-link" href="/authors">Artists</a>
 				</li>
 				</ul>
 			</div>
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 	</main>
-	<footer class="text-bg-dark mt-3">
+	<footer class="text-bg-secondary mt-3">
 		<div class="container">
 			<div class="row py-5">
 				<div class="col">
@@ -49,5 +49,8 @@
 			</div>
 		</div>
 	</footer>
+	
+	<script src="/js/admin.js"></script>
+
 </body>
 </html>
