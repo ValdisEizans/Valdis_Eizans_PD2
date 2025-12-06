@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Author;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class AuthorController extends Controller
+class AuthorController extends Controller implements HasMiddleware
 {
+	/**
+	* Get the middleware that should be assigned to the controller.
+	*/
+	public static function middleware(): array
+	{
+		return [
+			'auth',
+		];
+	}
+	
     // display all Authors
 	public function list(): View
 	{
@@ -16,7 +27,7 @@ class AuthorController extends Controller
 	return view(
 	'author.list',
 	[
-	'title' => 'Artists',
+	'title' => 'Mākslinieki',
 	'items' => $items,
 	]
 	);
@@ -28,7 +39,7 @@ class AuthorController extends Controller
 	return view(
 	'author.form',
 	[
-	'title' => 'Add new artist',
+	'title' => 'Pievienot jaunu mākslinieku',
 	'author' => new Author()
 	]
 	);
@@ -52,7 +63,7 @@ class AuthorController extends Controller
 	 return view(
 	 'author.form',
 	 [
-	 'title' => 'Edit artist',
+	 'title' => 'Rediģēt mākslinieku',
 	 'author' => $author
 	 ]
 	 );

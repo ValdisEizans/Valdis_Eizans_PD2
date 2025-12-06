@@ -16,10 +16,10 @@
  <td>{{ $author->id }}</td>
  <td>{{ $author->name }}</td>
  <td>
-	 <a href="/authors/update/{{ $author->id }}" class="btn btn-outline-primary btn-sm">Edit</a> / 
+	 <a href="/authors/update/{{ $author->id }}" class="btn btn-outline-primary btn-sm">Labot</a> / 
 	 <form action="/authors/delete/{{ $author->id }}" method="post" class="deletion-form d-inline">
 	 @csrf
-	 <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+	 <button type="submit" class="btn btn-outline-danger btn-sm">Dzēst</button>
 	</form>
 </td>
  </tr>
@@ -29,5 +29,5 @@
  @else
  <p>No entries found in database</p>
  @endif
- <a href="/authors/create" class="btn btn-primary">Add new</a>
+ <a href="/authors/create" class="btn btn-primary">Pievienot jaunu</a>
 @endsection
