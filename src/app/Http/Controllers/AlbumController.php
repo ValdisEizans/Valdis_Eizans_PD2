@@ -8,9 +8,33 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use App\Http\Requests\AlbumRequest;
 
 class AlbumController extends Controller implements HasMiddleware
 {
+	private function saveAlbumData(Album $album, AlbumRequest $request): void
+	{
+		$validatedData = $request->validated();
+		
+		$album->fill($validatedData);
+		$album->display = (bool) ($validatedData['display'] ?? false);
+
+		if ($request->hasFile('image')) {
+			// šeit varat pievienot kodu, kas nodzēš veco bildi, ja pievieno jaunu
+			$uploadedFile = $request->file('image');
+			$extension = $uploadedFile->clientExtension();
+			$name = uniqid();
+			$album->image = $uploadedFile->storePubliclyAs(
+			'/',
+			$name . '.' . $extension,
+			'uploads'
+			);
+		}
+
+		$album->save();
+	}
+
+	
     // call auth middleware
 	public static function middleware(): array
 	{
@@ -47,38 +71,10 @@ class AlbumController extends Controller implements HasMiddleware
 	}
 	
 	// create new Album entry
-	public function put(Request $request): RedirectResponse
+	public function put(AlbumRequest $request): RedirectResponse
 	{
-		$validatedData = $request->validate([
-			'name' => 'required|min:3|max:256',
-			'author_id' => 'required',
-			'description' => 'nullable',
-			'price' => 'nullable|numeric',
-			'year' => 'numeric',
-			'image' => 'nullable|image',
-			'display' => 'nullable',
-		]);
 		$album = new Album();
-		$album->name = $validatedData['name'];
-		$album->author_id = $validatedData['author_id'];
-		$album->description = $validatedData['description'];
-		$album->price = $validatedData['price'];
-		$album->year = $validatedData['year'];
-		$album->display = (bool) ($validatedData['display'] ?? false);
-		
-		if ($request->hasFile('image')) {
-			// šeit varat pievienot kodu, kas nodzēš veco bildi, ja pievieno jaunu
-			 $uploadedFile = $request->file('image');
-			 $extension = $uploadedFile->clientExtension();
-			 $name = uniqid();
-			 $album->image = $uploadedFile->storePubliclyAs(
-			 '/',
-			 $name . '.' . $extension,
-			 'uploads'
-			 );
-		}
-		
-		$album->save();
+		$this->saveAlbumData($album, $request);
 		return redirect('/albums');
 	}
 
@@ -97,38 +93,9 @@ class AlbumController extends Controller implements HasMiddleware
 	}
 	
 	// update Album data
-	public function patch(Album $album, Request $request): RedirectResponse
+	public function patch(Album $album, AlbumRequest $request): RedirectResponse
 	{
-		$validatedData = $request->validate([
-			'name' => 'required|min:3|max:256',
-			'author_id' => 'required',
-			'description' => 'nullable',
-			'price' => 'nullable|numeric',
-			'year' => 'numeric',
-			'image' => 'nullable|image',
-			'display' => 'nullable',
-		]);
-		$album->name = $validatedData['name'];
-		$album->author_id = $validatedData['author_id'];
-		$album->description = $validatedData['description'];
-		$album->price = $validatedData['price'];
-		$album->year = $validatedData['year'];
-		$album->display = (bool) ($validatedData['display'] ?? false);
-		
-		if ($request->hasFile('image')) {
-			// šeit varat pievienot kodu, kas nodzēš veco bildi, ja pievieno jaunu
-			 $uploadedFile = $request->file('image');
-			 $extension = $uploadedFile->clientExtension();
-			 $name = uniqid();
-			 $album->image = $uploadedFile->storePubliclyAs(
-			 '/',
-			 $name . '.' . $extension,
-			 'uploads'
-			 );
-		}
-		
-		$album->save();
-		//return redirect('/albums/update/' . $album->id);
+		$this->saveAlbumData($album, $request);
 		return redirect('/albums');
 	}
 	
