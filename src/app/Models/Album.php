@@ -19,5 +19,10 @@ class Album extends Model
 	{
 	 return $this->belongsTo(Author::class);
 	}
+	
+	public function genre(): BelongsTo
+	{
+	 return $this->belongsTo(Genre::class);
+	}
 
 }

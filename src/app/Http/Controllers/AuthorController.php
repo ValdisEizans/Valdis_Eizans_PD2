@@ -82,7 +82,7 @@ class AuthorController extends Controller implements HasMiddleware
 
 	public function delete(Author $author): RedirectResponse
 	{
-	 // this is a good place to check if author has related Book items and if so, prevent deletion
+	 // this is a good place to check if author has related Albums items and if so, prevent deletion
 	 $author->delete();
 	 return redirect('/authors');
 	}

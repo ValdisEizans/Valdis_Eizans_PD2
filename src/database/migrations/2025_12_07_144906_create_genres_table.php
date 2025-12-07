@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('albums', function (Blueprint $table) {
-		$table->foreign('author_id')->references('id')->on('authors');
-		});
+        Schema::create('genres', function (Blueprint $table) {
+            $table->id();
+			$table->string('name');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('albums', function (Blueprint $table) {
-		$table->dropForeign('albums_author_id_foreign');
-		});
+        Schema::dropIfExists('genres');
     }
 };

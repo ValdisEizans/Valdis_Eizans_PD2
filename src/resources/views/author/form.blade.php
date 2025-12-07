@@ -2,7 +2,7 @@
 @section('content')
  <h1>{{ $title }}</h1>
  @if ($errors->any())
- <div class="alert alert-danger">Please fix the errors!</div>
+ <div class="alert alert-danger">Lūdzu, novērsiet radušās kļūdas!</div>
  @endif
  <form method="post" action="{{ $author->exists ? '/authors/patch/' . $author->id : '/authors/put' }}">
  @csrf
