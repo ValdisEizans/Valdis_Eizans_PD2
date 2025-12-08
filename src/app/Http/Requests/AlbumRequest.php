@@ -27,6 +27,7 @@ class AlbumRequest extends FormRequest
 			'description' => 'nullable',
 			'price' => 'nullable|numeric',
 			'year' => 'numeric',
+			'genre_id' => 'nullable',
 			'image' => 'nullable|image',
 			'display' => 'nullable',
         ];
@@ -53,6 +54,7 @@ class AlbumRequest extends FormRequest
 		'description' => 'apraksts',
 		'price' => 'cena',
 		'year' => 'gads',
+		'genre_id' => 'žanrs',
 		'image' => 'attēls',
 		'display' => 'publicēt',
 	];

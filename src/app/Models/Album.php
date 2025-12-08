@@ -13,6 +13,7 @@ class Album extends Model
 		'description',
 		'price',
 		'year',
+		'genre_id',
 	];
 
     public function author(): BelongsTo

@@ -13,6 +13,7 @@
 				<th>Autors</th>
 				<th>Gads</th>
 				<th>Cena</th>
+				<th>Žanrs</th>
 				<th>Attēlot</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -26,6 +27,7 @@
 				<td>{{ $album->author->name }}</td>
 				<td>{{ $album->year }}</td>
 				<td>&euro; {{ number_format($album->price, 2, '.') }}</td>
+				<td>{{ $album->genre->name }}</td>
 				<td>{!! $album->display ? '&#x2714;' : '&#x274C;' !!}</td>
 				<td>
 					<a href="/albums/update/{{ $album->id }}" class="btn btn-outline-primary btn-sm">Labot</a> /

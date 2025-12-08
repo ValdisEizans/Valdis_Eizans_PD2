@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Album;
+use App\Models\Genre;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -60,12 +61,14 @@ class AlbumController extends Controller implements HasMiddleware
 	public function create(): View
 	{
 		$authors = Author::orderBy('name', 'asc')->get();
+		$genres = Genre::orderBy('name', 'asc')->get();
 		return view(
 		'album.form',
 		[
 		'title' => 'Pievienot albūmu',
 		'album' => new Album(),
 		'authors' => $authors,
+		'genres' => $genres,
 		]
 		);
 	}
@@ -82,12 +85,14 @@ class AlbumController extends Controller implements HasMiddleware
 	public function update(Album $album): View
 	{
 		$authors = Author::orderBy('name', 'asc')->get();
+		$genres = Genre::orderBy('name', 'asc')->get();
 		return view(
 		'album.form',
 		[
 		'title' => 'Rediģēt albūmu',
 		'album' => $album,
 		'authors' => $authors,
+		'genres' => $genres,
 		]
 		);
 	}
